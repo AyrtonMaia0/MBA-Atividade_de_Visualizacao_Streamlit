@@ -19,6 +19,9 @@ copiaDF = df.copy()
 gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum()
 #gastoPorDepartamento
 
+#######################################################
+st.title('Teste')
+
 #Configurando graficos
 sns.set(style="whitegrid", palette="muted")
 
@@ -31,7 +34,7 @@ plt.title('Total de Horas de Treinamento por Departamento')
 plt.xlabel('Horas Totais')
 plt.ylabel('Departamento')
 plt.tight_layout()
-plt.show()
+st.write(plt.show())
 
 #Relacao entre Horas Gastas e Performance
 plt.figure(figsize=(10,6))
@@ -54,4 +57,5 @@ plt.ylabel('Departamento')
 plt.tight_layout()
 plt.show()
 
-st.title('Teste')
+
+
