@@ -38,13 +38,25 @@ plt.show()
 
 #Relacao entre Horas Gastas e Performance
 plt.figure(figsize=(10,6))
-sns.scatterplot(data=df, x='Training_Hours', y='Performance_Score', hue='Department', palette='tab10', s=100)
+sns.scatterplot(data=copiaDF, x='Training_Hours', y='Performance_Score', hue='Department', palette='tab10', s=100)
 plt.title('Horas de Treinamento vs. Performance por Departamento')
 plt.xlabel('Horas de Treinamento')
 plt.ylabel('Performance')
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
 plt.show()
+
+st.scatter_chart(data=copiaDF,
+                 *,
+                 x='Training_Hours',
+                 y='Performance_Score', 
+                 x_label='Horas de Treinamento', 
+                 y_label='Performance', 
+                 color=None, 
+                 size=100, 
+                 width=None, 
+                 height=None, 
+                 use_container_width=True)
 
 #Salario medio por Departamento
 salary_by_department = copiaDF.groupby('Department')['Salary'].mean().sort_values(ascending=False)
