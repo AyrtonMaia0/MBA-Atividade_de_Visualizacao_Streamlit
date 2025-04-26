@@ -47,7 +47,6 @@ plt.tight_layout()
 plt.show()
 
 st.scatter_chart(data=copiaDF,
-                 *,
                  x='Training_Hours',
                  y='Performance_Score', 
                  x_label='Horas de Treinamento', 
