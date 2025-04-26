@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
 
 df = pd.read_csv('employee_performance.csv')
 #df.sample(10)
@@ -52,3 +53,5 @@ plt.xlabel('Salário Médio (R$)')
 plt.ylabel('Departamento')
 plt.tight_layout()
 plt.show()
+
+st.title('Teste')
