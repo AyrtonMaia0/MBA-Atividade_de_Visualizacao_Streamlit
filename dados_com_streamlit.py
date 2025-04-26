@@ -34,7 +34,7 @@ plt.title('Total de Horas de Treinamento por Departamento')
 plt.xlabel('Horas Totais')
 plt.ylabel('Departamento')
 plt.tight_layout()
-st.write(plt.show())
+st.write(plt)
 
 #Relacao entre Horas Gastas e Performance
 plt.figure(figsize=(10,6))
