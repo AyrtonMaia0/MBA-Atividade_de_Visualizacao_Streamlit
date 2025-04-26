@@ -48,32 +48,34 @@ st.write(copiaDF.isna().sum())
 ###### FIM | DATAFRAME - VALORES NULOS ######
 
 
-###### INICIO | GRAFICO - GASTO POR DEPARTAMENTO ######
-st.subheader('Gasto Total por Departamento (Salários)')
-gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum().sort_values(ascending=False)
-st.bar_chart(gastoPorDepartamento)
-###### FIM | GRAFICO - GASTO POR DEPARTAMENTO ######
-
-
 #Configurando graficos
 sns.set(style="whitegrid", palette="muted")
 
 
-###### INICIO | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
-st.subheader('Total de Horas de Treinamento por Departamento')
-hours_by_department = copiaDF.groupby('Department')['Training_Hours'].sum().sort_values(ascending=False)
+# Dividir a tela em duas colunas
+col1, col2 = st.columns(2)
+# Exibir os gráficos nas colunas
+with col1:
+            ###### INICIO | GRAFICO - GASTO POR DEPARTAMENTO ######
+            st.subheader('Gasto Total por Departamento (Salários)')
+            gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum().sort_values(ascending=False)
+            st.bar_chart(gastoPorDepartamento)
+            ###### FIM | GRAFICO - GASTO POR DEPARTAMENTO ######
 
+with col2:
+            ###### INICIO | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
+            st.subheader('Total de Horas de Treinamento por Departamento')
+            hours_by_department = copiaDF.groupby('Department')['Training_Hours'].sum().sort_values(ascending=False)
 
-##teste
-fig = go.Figure(go.Bar(
-            x=hours_by_department.values,
-            y=hours_by_department.index,
-            orientation='h')
+            fig = go.Figure(go.Bar(
+                        x=hours_by_department.values,
+                        y=hours_by_department.index,
+                        orientation='h')
                )
-st.plotly_chart(fig,
-                theme="streamlit"
+            st.plotly_chart(fig,
+                        theme="streamlit"
                )
-###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
+            ###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
 
 
 ###### INICIO | GRAFICO - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
