@@ -18,8 +18,8 @@ st.title('📊 Análise de Performance e Gastos por Departamento')
 st.sidebar.header("teste")
 
 #Filter 1
-with st.sidebar:
-    st.[df.Department]
+#with st.sidebar:
+#    st.[df.Department]
 ###### FIM | SIDEBAR ######
 
 
