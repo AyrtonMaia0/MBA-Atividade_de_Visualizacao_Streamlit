@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.graph_objects as go
 
 
 ###### INICIO | INTRODUCAO ######
@@ -62,12 +63,20 @@ sns.set(style="whitegrid", palette="muted")
 st.subheader('Total de Horas de Treinamento por Departamento')
 hours_by_department = copiaDF.groupby('Department')['Training_Hours'].sum().sort_values(ascending=False)
 
-fig1, ax1 = plt.subplots(figsize=(10,6))
-sns.barplot(x=hours_by_department.values, y=hours_by_department.index, palette="viridis", ax=ax1)
-ax1.set_title('Total de Horas de Treinamento por Departamento')
-ax1.set_xlabel('Horas Totais')
-ax1.set_ylabel('Departamento')
-st.pyplot(fig1)
+
+##teste
+fig = go.Figure(go.Bar(
+            x=hours_by_department.values,
+            y=hours_by_department.index,
+            orientation='h')
+               )
+st.plotly_chart(fig,
+                use_container_width=True,
+                theme="streamlit",
+                key=None,
+                on_select="ignore",
+                selection_mode=('points', 'box', 'lasso')
+               )
 ###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
 
 
