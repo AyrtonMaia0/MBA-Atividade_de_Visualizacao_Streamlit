@@ -16,7 +16,7 @@ copiaDF = df.copy()
 
 #copiaDF.isna().sum()
 
-gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum()
+#gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum()
 #gastoPorDepartamento
 
 #######################################################
@@ -25,9 +25,24 @@ st.title('Teste')
 #Configurando graficos
 sns.set(style="whitegrid", palette="muted")
 
+
+st.header('Total de Horas de Treinamento por Departamento')
 #Horas de Treinamento por Departamento
 hours_by_department = copiaDF.groupby('Department')['Training_Hours'].sum().sort_values(ascending=False)
 
+fig1, ax1 = plt.subplots(figsize=(10,6))
+sns.barplot(x=hours_by_department.values, y=hours_by_department.index, palette="viridis", ax=ax1)
+ax1.set_title('Total de Horas de Treinamento por Departamento')
+ax1.set_xlabel('Horas Totais')
+ax1.set_ylabel('Departamento')
+st.pyplot(fig1)
+
+
+
+
+
+#############################################################################################
+'''
 plt.figure(figsize=(10,6))
 sns.barplot(x=hours_by_department.values, y=hours_by_department.index, palette="viridis")
 plt.title('Total de Horas de Treinamento por Departamento')
@@ -35,7 +50,9 @@ plt.xlabel('Horas Totais')
 plt.ylabel('Departamento')
 plt.tight_layout()
 plt.show()
+'''
 
+'''
 #Relacao entre Horas Gastas e Performance
 plt.figure(figsize=(10,6))
 sns.scatterplot(data=copiaDF, x='Training_Hours', y='Performance_Score', hue='Department', palette='tab10', s=100)
@@ -45,7 +62,9 @@ plt.ylabel('Performance')
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
 plt.show()
+'''
 
+'''
 st.scatter_chart(data=copiaDF,
                  x='Training_Hours',
                  y='Performance_Score', 
@@ -56,7 +75,9 @@ st.scatter_chart(data=copiaDF,
                  width=None, 
                  height=None, 
                  use_container_width=True)
+'''
 
+'''
 #Salario medio por Departamento
 salary_by_department = copiaDF.groupby('Department')['Salary'].mean().sort_values(ascending=False)
 
@@ -67,6 +88,5 @@ plt.xlabel('Salário Médio (R$)')
 plt.ylabel('Departamento')
 plt.tight_layout()
 plt.show()
-
-
+'''
 
