@@ -71,11 +71,7 @@ fig = go.Figure(go.Bar(
             orientation='h')
                )
 st.plotly_chart(fig,
-                use_container_width=True,
-                theme="streamlit",
-                key=None,
-                on_select="ignore",
-                selection_mode=('points', 'box', 'lasso')
+                theme="streamlit"
                )
 ###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
 
