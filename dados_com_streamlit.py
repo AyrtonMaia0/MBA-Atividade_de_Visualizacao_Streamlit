@@ -10,7 +10,7 @@ import streamlit as st
 df = pd.read_csv('employee_performance.csv')
 #df.sample(10)
 
-#copiaDF = df.copy()
+copiaDF = df.copy()
 
 #copiaDF.info()
 
