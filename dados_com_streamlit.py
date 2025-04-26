@@ -19,10 +19,7 @@ st.sidebar.header("teste")
 
 #Filter 1
 with st.sidebar:
-    select_box = st.selectbox(
-        "Escolha um dos Departamentos",
-        (df['Department'])
-    )
+    st.[df.Department]
 ###### FIM | SIDEBAR ######
 
 
