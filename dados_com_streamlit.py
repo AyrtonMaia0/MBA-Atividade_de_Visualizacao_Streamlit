@@ -117,14 +117,30 @@ st.plotly_chart(fig, use_container_width=True)
 ###### INICIO | GRAFICO - SALARIO MEDIO POR DEPARTAMENTO ######
 st.subheader('Salário Médio por Departamento')
 
-salary_by_department = copiaDF.groupby('Department')['Salary'].mean().sort_values(ascending=False)
+#Agrupando os dados
+salario_df = copiaDF.groupby('Department').agg({
+    'Salary': 'mean'
+}).reset_index()
 
-fig3, ax3 = plt.subplots(figsize=(10,6))
-sns.barplot(x=salary_by_department.values, y=salary_by_department.index, palette="rocket", ax=ax3)
-ax3.set_title('Salário Médio por Departamento')
-ax3.set_xlabel('Salário Médio (R$)')
-ax3.set_ylabel('Departamento')
-st.pyplot(fig3)
+fig = px.bar(
+    salario_df,
+    x='Salary',
+    y='Department',
+    orientation='h',          #barras horizontais
+    color='Department',       #cores por departamento
+    text_auto='.2s'           #valores nas barras
+)
+
+fig.update_layout(
+    xaxis_title='Salário Médio (R$)',
+    yaxis_title='Departamento',
+    template='plotly_dark',    #'plotly_white'
+    width=800,
+    height=500,
+    showlegend=False          #remove legenda
+)
+
+st.plotly_chart(fig, use_container_width=True)
 ###### FIM | GRAFICO - SALARIO MEDIO POR DEPARTAMENTO ######
 
 
