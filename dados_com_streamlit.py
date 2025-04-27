@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.graph_objects as go
+import plotly.express as px
 
 
 ###### INICIO | INTRODUCAO ######
@@ -82,28 +83,31 @@ with col2:
 
 
 ###### INICIO | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
-st.subheader('Média de Horas de Treinamento vs. Performance')
+st.subheader('Horas de Treinamento vs. Performance por Departamento')
 
-#Agrupando os dados
-agg_df = copiaDF.groupby('Department').agg({
-    'Training_Hours': 'mean',
-    'Performance_Score': 'mean'
-}).sort_values('Training_Hours', ascending=False)
-
-#Resetando o índice para deixar o Department como coluna
-agg_df = agg_df.reset_index()
-
-#Usando st.line_chart para grafico interativo
-st.line_chart(
-    data=agg_df,
-    x='Department',
-    y=['Training_Hours', 'Performance_Score'],
-    width=0,
-    height=400,
-    use_container_width=True
+# Criar o gráfico usando Plotly Express
+fig = px.line(
+    copiaDF,
+    x='Training_Hours',
+    y='Performance_Score',
+    color='Department',
+    markers=True,
+    labels={
+        'Training_Hours': 'Horas de Treinamento',
+        'Performance_Score': 'Performance',
+        'Department': 'Departamento'
+    },
+    title='Performance em função das Horas de Treinamento por Departamento'
 )
-###### FIM | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
 
+fig.update_layout(
+    width=900,
+    height=500,
+    template='plotly_white'
+)
+
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+###### FIM | LINHA - RELAÇÃO ENTRE HORAS DE TREINAMENTO E PERFORMANCE POR DEPARTAMENTO ######
 
 
 
