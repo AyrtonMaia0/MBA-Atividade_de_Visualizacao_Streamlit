@@ -38,6 +38,8 @@ departamento_selecionado = st.sidebar.multiselect(
     options=departamentos,
     default=departamentos
 )
+
+copiaDF = copiaDF[copiaDF['Department'].isin(departamento_selecionado)]
 ###### FIM | SIDEBAR ######
 
 
