@@ -78,24 +78,51 @@ with col2:
             ###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
 
 
+
+
+
 ###### INICIO | GRAFICO - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
-#Relacao entre Horas Gastas e Performance - Media por Departamento
 st.subheader('Média de Horas de Treinamento vs. Performance')
 
+# Agrupando os dados
 agg_df = copiaDF.groupby('Department').agg({
     'Training_Hours': 'mean',
     'Performance_Score': 'mean'
 }).sort_values('Training_Hours', ascending=False)
 
-fig2, ax2 = plt.subplots(figsize=(12,6))
-sns.lineplot(data=agg_df, markers=True, dashes=False, ax=ax2)
-ax2.set_title('Média de Horas de Treinamento vs. Média de Performance por Departamento')
-ax2.set_xlabel('Departamento')
-ax2.set_ylabel('Média')
-ax2.grid(True)
-ax2.set_xticklabels(agg_df.index, rotation=45)
-st.pyplot(fig2)
+# Criando gráfico interativo com Plotly
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(
+    x=agg_df.index,
+    y=agg_df['Training_Hours'],
+    mode='lines+markers',
+    name='Horas de Treinamento (Média)',
+    line=dict(color='blue')
+))
+
+fig.add_trace(go.Scatter(
+    x=agg_df.index,
+    y=agg_df['Performance_Score'],
+    mode='lines+markers',
+    name='Performance Score (Média)',
+    line=dict(color='green')
+))
+
+fig.update_layout(
+    title='Média de Horas de Treinamento vs. Média de Performance por Departamento',
+    xaxis_title='Departamento',
+    yaxis_title='Média',
+    legend_title='Métricas',
+    xaxis=dict(tickangle=-45),
+    template='plotly_white'
+)
+
+st.plotly_chart(fig, theme="streamlit")
 ###### FIM | GRAFICO - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
+
+
+
 
 
 ###### INICIO | GRAFICO - SALARIO MEDIO POR DEPARTAMENTO ######
