@@ -56,14 +56,14 @@ sns.set(style="whitegrid", palette="muted")
 col1, col2 = st.columns(2)
 # Exibir os gráficos nas colunas
 with col1:
-            ###### INICIO | GRAFICO - GASTO POR DEPARTAMENTO ######
+            ###### INICIO | BARRA VERTICAL - GASTO POR DEPARTAMENTO ######
             st.subheader('Gasto Total por Departamento (Salários)')
             gastoPorDepartamento = copiaDF.groupby('Department')['Salary'].sum().sort_values(ascending=False)
             st.bar_chart(gastoPorDepartamento)
-            ###### FIM | GRAFICO - GASTO POR DEPARTAMENTO ######
+            ###### FIM | BARRA VERTICAL - GASTO POR DEPARTAMENTO ######
 
 with col2:
-            ###### INICIO | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
+            ###### INICIO | BARRA HORIZONTAL - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
             st.subheader('Total de Horas de Treinamento por Departamento')
             hours_by_department = copiaDF.groupby('Department')['Training_Hours'].sum().sort_values(ascending=False)
 
@@ -75,51 +75,34 @@ with col2:
             st.plotly_chart(fig,
                         theme="streamlit"
                )
-            ###### FIM | GRAFICO - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
+            ###### FIM | BARRA HORIZONTAL - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
 
 
 
 
 
-###### INICIO | GRAFICO - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
+###### INICIO | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
 st.subheader('Média de Horas de Treinamento vs. Performance')
 
-# Agrupando os dados
+#Agrupando os dados
 agg_df = copiaDF.groupby('Department').agg({
     'Training_Hours': 'mean',
     'Performance_Score': 'mean'
 }).sort_values('Training_Hours', ascending=False)
 
-# Criando gráfico interativo com Plotly
-fig = go.Figure()
+#Resetando o índice para deixar o Department como coluna
+agg_df = agg_df.reset_index()
 
-fig.add_trace(go.Scatter(
-    x=agg_df.index,
-    y=agg_df['Training_Hours'],
-    mode='lines+markers',
-    name='Horas de Treinamento (Média)',
-    line=dict(color='blue')
-))
-
-fig.add_trace(go.Scatter(
-    x=agg_df.index,
-    y=agg_df['Performance_Score'],
-    mode='lines+markers',
-    name='Performance Score (Média)',
-    line=dict(color='green')
-))
-
-fig.update_layout(
-    title='Média de Horas de Treinamento vs. Média de Performance por Departamento',
-    xaxis_title='Departamento',
-    yaxis_title='Média',
-    legend_title='Métricas',
-    xaxis=dict(tickangle=-45),
-    template='plotly_white'
+#Usando st.line_chart para grafico interativo
+st.line_chart(
+    data=agg_df,
+    x='Department',
+    y=['Training_Hours', 'Performance_Score'],
+    width=0,
+    height=400,
+    use_container_width=True
 )
-
-st.plotly_chart(fig, theme="streamlit")
-###### FIM | GRAFICO - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
+###### FIM | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
 
 
 
