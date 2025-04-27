@@ -29,7 +29,7 @@ copiaDF = df.copy()
 
 
 ###### INICIO | SIDEBAR ######
-st.sidebar.header("Visualização de Dados")
+st.sidebar.header("test")
 departamentos = df['Department'].unique()
 
 #Filtro multiselect
