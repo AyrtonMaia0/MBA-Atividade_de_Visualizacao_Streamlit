@@ -83,30 +83,37 @@ with col2:
 
 
 ###### INICIO | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
-st.subheader('Horas de Treinamento vs. Performance por Departamento')
+st.subheader('Relação entre Horas de Treinamento e Performance')
 
-# Criar o gráfico usando Plotly Express
-fig = px.line(
-    copiaDF,
+# Agrupando os dados
+agg_df = copiaDF.groupby('Department').agg({
+    'Training_Hours': 'mean',
+    'Performance_Score': 'mean'
+}).reset_index()
+
+# Criando scatter plot
+fig = px.scatter(
+    agg_df,
     x='Training_Hours',
     y='Performance_Score',
-    color='Department',
-    markers=True,
+    text='Department',  # coloca o nome do departamento nos pontos
+    title='Horas de Treinamento vs. Performance por Departamento',
     labels={
-        'Training_Hours': 'Horas de Treinamento',
-        'Performance_Score': 'Performance',
-        'Department': 'Departamento'
-    },
-    title='Performance em função das Horas de Treinamento por Departamento'
+        'Training_Hours': 'Média de Horas de Treinamento',
+        'Performance_Score': 'Média de Performance'
+    }
 )
 
+fig.update_traces(textposition='top center')
 fig.update_layout(
-    width=900,
-    height=500,
-    template='plotly_white'
+    xaxis_title='Média de Horas de Treinamento',
+    yaxis_title='Média de Performance',
+    template='plotly_white',
+    width=800,
+    height=500
 )
 
-st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)
 ###### FIM | LINHA - RELAÇÃO ENTRE HORAS DE TREINAMENTO E PERFORMANCE POR DEPARTAMENTO ######
 
 
