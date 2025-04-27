@@ -16,15 +16,6 @@ st.title('📊 Análise de Performance e Gastos por Departamento')
 #Storytelling ...
 
 
-###### INICIO | SIDEBAR ######
-st.sidebar.header("teste")
-
-#Filter 1
-#with st.sidebar:
-#    st.[df.Department]
-###### FIM | SIDEBAR ######
-
-
 ###### INICIO | DATAFRAME - INTRODUZIR ######
 #Carregando os dados
 df = pd.read_csv('employee_performance.csv')
@@ -35,11 +26,28 @@ st.dataframe(df.sample(10))
 copiaDF = df.copy()
 ###### FIM | DATAFRAME - INTRODUZIR ######
 
+
+
+###### INICIO | SIDEBAR ######
+st.sidebar.header("Visualização de Dados")
+departamentos = df['Department'].unique()
+
+#Filtro multiselect
+departamento_selecionado = st.sidebar.multiselect(
+    "Selecione o Departamento:",
+    options=departamentos,
+    default=departamentos
+)
+###### FIM | SIDEBAR ######
+
+
+
 ###### INICIO | DATAFRAME - INFORMAÇÕES ######
 #st.subheader('Informações do Dataset')
 #buffer = copiaDF.info()
 #st.text(buffer)
 ###### FIM | DATAFRAME - INFORMAÇÕES ######
+
 
 
 ###### INICIO | DATAFRAME - VALORES NULOS ######
@@ -77,7 +85,6 @@ with col2:
                         theme="streamlit"
                )
             ###### FIM | BARRA HORIZONTAL - HORAS DE TREINAMENTO POR DEPARTAMENTO ######
-
 
 
 
