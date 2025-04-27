@@ -85,32 +85,27 @@ with col2:
 ###### INICIO | LINHA - MEDIA DE HORAS DE TREINAMENTO vs MEDIA DE PERFORMANCE POR DEPARTAMENTO ######
 st.subheader('Relação entre Horas de Treinamento e Performance')
 
-# Agrupando os dados
+#Agrupamento de dados
 agg_df = copiaDF.groupby('Department').agg({
     'Training_Hours': 'mean',
     'Performance_Score': 'mean'
 }).reset_index()
 
-# Criando scatter plot
-fig = px.scatter(
+fig = px.line(
     agg_df,
     x='Training_Hours',
     y='Performance_Score',
-    text='Department',  # coloca o nome do departamento nos pontos
-    title='Horas de Treinamento vs. Performance por Departamento',
-    labels={
-        'Training_Hours': 'Média de Horas de Treinamento',
-        'Performance_Score': 'Média de Performance'
-    }
+    color='Department',
+    markers=True
 )
 
-fig.update_traces(textposition='top center')
 fig.update_layout(
     xaxis_title='Média de Horas de Treinamento',
     yaxis_title='Média de Performance',
-    template='plotly_white',
+    template='plotly_dark',
     width=800,
-    height=500
+    height=500,
+    legend_title='Departamento'
 )
 
 st.plotly_chart(fig, use_container_width=True)
